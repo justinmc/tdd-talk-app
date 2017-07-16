@@ -1,0 +1,24 @@
+{
+  "name": "tdd-talk-app",
+  "version": "1.0.0",
+  "description": "Example app for the talk \"Practical TDD in JavaScript\" https://github.com/justinmc/tdd-talk",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "karma",
+    "dev": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinmc/tdd-talk-app.git"
+  },
+  "author": "Justin McCandless",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/justinmc/tdd-talk-app/issues"
+  },
+  "homepage": "https://github.com/justinmc/tdd-talk-app#readme",
+  "devDependencies": {
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.5.1"
+  }
+}
