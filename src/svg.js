@@ -1,6 +1,9 @@
 const rectangleFactory = require('./rectangle');
 const svgConstants = require('../src/svg_constants');
 
+const RECT_WIDTH = 10;
+const RECT_HEIGHT = 10;
+
 function toViewBoxCoords(width, height, x, y) {
   return {
     x: svgConstants.DIMENSIONS_X * x / width,
@@ -14,8 +17,8 @@ function svgFactory() {
   svg.setAttribute('preserveAspectRatio', 'none');
 
   const rectangles = [
-    rectangleFactory(10, 10),
-    rectangleFactory(60, 60),
+    rectangleFactory(10, 10, RECT_WIDTH, RECT_HEIGHT),
+    rectangleFactory(60, 60, RECT_WIDTH, RECT_HEIGHT),
   ];
 
   let dragging;
@@ -29,8 +32,8 @@ function svgFactory() {
   svg.addEventListener('mousemove', (event) => {
     if (dragging) {
       const viewBoxCoords = toViewBoxCoords(svg.clientWidth, svg.clientHeight, event.clientX, event.clientY);
-      dragging.setAttribute('x', viewBoxCoords.x);
-      dragging.setAttribute('y', viewBoxCoords.y);
+      dragging.setAttribute('x', viewBoxCoords.x - RECT_WIDTH / 2);
+      dragging.setAttribute('y', viewBoxCoords.y - RECT_HEIGHT / 2);
     }
   });
 
