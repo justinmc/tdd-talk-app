@@ -4,7 +4,8 @@
   "description": "Example app for the talk \"Practical TDD in JavaScript\" https://github.com/justinmc/tdd-talk",
   "main": "src/main.js",
   "scripts": {
-    "test": "karma",
+    "test": "mocha",
+    "tdd": "mocha -w",
     "dev": "webpack-dev-server"
   },
   "repository": {
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/justinmc/tdd-talk-app#readme",
   "devDependencies": {
+    "chai": "^4.1.0",
     "webpack": "^3.3.0",
     "webpack-dev-server": "^2.5.1"
   }
