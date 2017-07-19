@@ -62,7 +62,7 @@ function svgFactory() {
 
   let dragging;
   rectangles.forEach((rect) => {
-    rect.addEventListener('mousedown', (event) => {
+    rect.addEventListener('mousedown', () => {
       dragging = rect;
     });
     svg.appendChild(rect);
@@ -70,7 +70,7 @@ function svgFactory() {
 
   svg.addEventListener('mousemove', (event) => {
     if (dragging) {
-      const viewBoxCoords = toViewBoxCoords(svg.clientWidth, svg.clientHeight, event.clientX, event.clientY);
+      const viewBoxCoords = toViewBoxCoords(svg.clientWidth, svg.clientHeight, event.offsetX, event.offsetY);
       dragging.setAttribute('x', viewBoxCoords.x - RECT_WIDTH / 2);
       dragging.setAttribute('y', viewBoxCoords.y - RECT_HEIGHT / 2);
 
