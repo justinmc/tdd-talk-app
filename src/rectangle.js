@@ -6,7 +6,7 @@ module.exports = function rectangleFactory(x, y, width, height) {
   rect.setAttribute('y', y);
   rect.setAttribute('width', width);
   rect.setAttribute('height', height);
-  rect.setAttribute('fill', 'black');
+  rect.setAttribute('fill', svgConstants.COLOR);
 
   return rect;
 }
