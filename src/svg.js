@@ -1,5 +1,5 @@
 const rectangleFactory = require('./rectangle');
-const svgConstants = require('../src/svg_constants');
+const svgConstants = require('./svg_constants');
 
 const RECT_WIDTH = 10;
 const RECT_HEIGHT = 10;
@@ -50,6 +50,9 @@ function getRectDimensions(rect) {
   };
 }
 
+/**
+ * Create the main app SVG
+ */
 function svgFactory() {
   const svg = document.createElementNS(svgConstants.NS, 'svg');
   svg.setAttribute('viewBox', `0 0 ${svgConstants.DIMENSIONS_X} ${svgConstants.DIMENSIONS_Y}`);
