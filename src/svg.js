@@ -13,12 +13,10 @@ const RECT_HEIGHT = 10;
  * @returns {{ x: Number, y: Number }}
  */
 function toViewBoxCoords(width, height, x, y) {
-  // TODO After writing specs for this, implement it and make sure the tests
-  // pass and dragging works
   return {
-    x: 0,
-    y: 0,
-  }
+    x: svgConstants.DIMENSIONS_X * x / width,
+    y: svgConstants.DIMENSIONS_Y * y / height,
+  };
 }
 
 /**
