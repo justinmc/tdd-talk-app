@@ -6,6 +6,7 @@ const RECT_HEIGHT = 10;
 
 /**
  * Convert between DOM coords and SVG viewbox coords
+ * SVG dimensions are svgConstants.DIMENSIONS_X, svgConstants.DIMENSIONS_Y
  * @param {Number} width, the total width of the svg in DOM coords
  * @param {Number} height, the total height of the svg in DOM coords
  * @param {Number} x, in DOM coords
@@ -13,27 +14,14 @@ const RECT_HEIGHT = 10;
  * @returns {{ x: Number, y: Number }}
  */
 function toViewBoxCoords(width, height, x, y) {
+  // TODO After writing specs for this, implement it and make sure the tests
+  // pass and dragging works.
+  // The SVG dimensions are given as constants:
+  // svgConstants.DIMENSIONS_X, svgConstants.DIMENSIONS_Y
   return {
-    x: svgConstants.DIMENSIONS_X * x / width,
-    y: svgConstants.DIMENSIONS_Y * y / height,
-  };
-}
-
-/**
- * Given two rectangles, returns true if they're overlapping, false otherwise
- * @param {{ x: Number, y: Number, width: Number, height: Number }} rectA
- * @param {{ x: Number, y: Number, width: Number, height: Number }} rectB
- * @returns {Boolean}
- */
-function isColliding(rectA, rectB) {
-  if (rectA.x > rectB.x + rectB.width || rectA.x + rectA.width < rectB.x) {
-    return false;
+    x: 0,
+    y: 0,
   }
-  if (rectA.y > rectB.y + rectB.height || rectA.y + rectA.height < rectB.y) {
-    return false;
-  }
-
-  return true;
 }
 
 /**
@@ -77,18 +65,6 @@ function svgFactory() {
       const viewBoxCoords = toViewBoxCoords(svg.clientWidth, svg.clientHeight, event.offsetX, event.offsetY);
       dragging.setAttribute('x', viewBoxCoords.x - RECT_WIDTH / 2);
       dragging.setAttribute('y', viewBoxCoords.y - RECT_HEIGHT / 2);
-
-      const collision = isColliding(
-        getRectDimensions(rectangles[0]), getRectDimensions(rectangles[1])
-      );
-
-      if (collision) {
-        rectangles[0].setAttribute('fill', svgConstants.COLLISION_COLOR);
-        rectangles[1].setAttribute('fill', svgConstants.COLLISION_COLOR);
-      } else {
-        rectangles[0].setAttribute('fill', svgConstants.COLOR);
-        rectangles[1].setAttribute('fill', svgConstants.COLOR);
-      }
     }
   });
 
@@ -99,6 +75,5 @@ function svgFactory() {
   return svg;
 }
 
-module.exports.isColliding = isColliding;
 module.exports.toViewBoxCoords = toViewBoxCoords;
 module.exports.svgFactory = svgFactory;
