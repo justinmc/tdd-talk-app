@@ -20,6 +20,18 @@ function toViewBoxCoords(width, height, x, y) {
 }
 
 /**
+ * Given two rectangles, returns true if they're overlapping, false otherwise
+ * @param {{ x: Number, y: Number, width: Number, height: Number }} boxA
+ * @param {{ x: Number, y: Number, width: Number, height: Number }} boxB
+ * @returns {Boolean}
+ */
+function isColliding(rectA, rectB) {
+  // TODO Write specs for isColliding in test/svg_spec.js, then actually make
+  // this method work and pass the specs
+  return false;
+}
+
+/**
  * Get the dimensions from the given SVG <rect/>
  * @param {Node} rect
  * @returns {{ x: Number, y: Number, width: Number, height: Number }}
@@ -70,5 +82,6 @@ function svgFactory() {
   return svg;
 }
 
+module.exports.isColliding = isColliding;
 module.exports.toViewBoxCoords = toViewBoxCoords;
 module.exports.svgFactory = svgFactory;
