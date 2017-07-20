@@ -43,10 +43,10 @@ function isColliding(rectA, rectB) {
  */
 function getRectDimensions(rect) {
   return {
-    x: parseInt(rect.getAttribute('x')),
-    y: parseInt(rect.getAttribute('y')),
-    width: parseInt(rect.getAttribute('width')),
-    height: parseInt(rect.getAttribute('height')),
+    x: parseFloat(rect.getAttribute('x')),
+    y: parseFloat(rect.getAttribute('y')),
+    width: parseFloat(rect.getAttribute('width')),
+    height: parseFloat(rect.getAttribute('height')),
   };
 }
 
