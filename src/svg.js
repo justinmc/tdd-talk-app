@@ -6,10 +6,10 @@ const RECT_HEIGHT = 10;
 
 /**
  * Convert between DOM coords and SVG viewbox coords
- * @param {Number} width
- * @param {Number} height
- * @param {Number} x
- * @param {Number} y
+ * @param {Number} width, the total width of the svg in DOM coords
+ * @param {Number} height, the total height of the svg in DOM coords
+ * @param {Number} x, in DOM coords
+ * @param {Number} y, in DOM coords
  * @returns {{ x: Number, y: Number }}
  */
 function toViewBoxCoords(width, height, x, y) {
@@ -21,8 +21,8 @@ function toViewBoxCoords(width, height, x, y) {
 
 /**
  * Given two rectangles, returns true if they're overlapping, false otherwise
- * @param {{ x: Number, y: Number, width: Number, height: Number }} boxA
- * @param {{ x: Number, y: Number, width: Number, height: Number }} boxB
+ * @param {{ x: Number, y: Number, width: Number, height: Number }} rectA
+ * @param {{ x: Number, y: Number, width: Number, height: Number }} rectB
  * @returns {Boolean}
  */
 function isColliding(rectA, rectB) {
@@ -52,6 +52,7 @@ function getRectDimensions(rect) {
 
 /**
  * Create the main app SVG
+ * @returns {Node}
  */
 function svgFactory() {
   const svg = document.createElementNS(svgConstants.NS, 'svg');
