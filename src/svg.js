@@ -20,6 +20,18 @@ function toViewBoxCoords(width, height, x, y) {
 }
 
 /**
+ * Given two rectangles, returns true if they're overlapping, false otherwise
+ * @param {{ x: Number, y: Number, width: Number, height: Number }} boxA
+ * @param {{ x: Number, y: Number, width: Number, height: Number }} boxB
+ * @returns {Boolean}
+ */
+function isColliding(rectA, rectB) {
+  // TODO Write specs for isColliding in test/svg_spec.js, then actually make
+  // this method work and pass the specs
+  return false;
+}
+
+/**
  * Get the dimensions from the given SVG <rect/>
  * @param {Node} rect
  * @returns {{ x: Number, y: Number, width: Number, height: Number }}
@@ -60,6 +72,18 @@ function svgFactory() {
       const viewBoxCoords = toViewBoxCoords(svg.clientWidth, svg.clientHeight, event.offsetX, event.offsetY);
       dragging.setAttribute('x', viewBoxCoords.x - RECT_WIDTH / 2);
       dragging.setAttribute('y', viewBoxCoords.y - RECT_HEIGHT / 2);
+
+      const collision = isColliding(
+        getRectDimensions(rectangles[0]), getRectDimensions(rectangles[1])
+      );
+
+      if (collision) {
+        rectangles[0].setAttribute('fill', svgConstants.COLLISION_COLOR);
+        rectangles[1].setAttribute('fill', svgConstants.COLLISION_COLOR);
+      } else {
+        rectangles[0].setAttribute('fill', svgConstants.COLOR);
+        rectangles[1].setAttribute('fill', svgConstants.COLOR);
+      }
     }
   });
 
@@ -70,5 +94,6 @@ function svgFactory() {
   return svg;
 }
 
+module.exports.isColliding = isColliding;
 module.exports.toViewBoxCoords = toViewBoxCoords;
 module.exports.svgFactory = svgFactory;
