@@ -54,7 +54,119 @@ describe('svg', () => {
   });
 
   describe('isColliding', () => {
-    // TODO Write some test cases for isColliding in src/svg.js,
-    // then make it pass
+    let boxA;
+    let boxB;
+
+    beforeEach(() => {
+      boxA = {};
+      boxB = {};
+    });
+
+    describe('when they\'re directly on top of each other', () => {
+      beforeEach(() => {
+        boxA = {
+          x: 0,
+          y: 0,
+          width: 10,
+          height: 10,
+        };
+        boxB = Object.assign({}, boxA);
+      });
+
+      it('returns true', () => {
+        expect(isColliding(boxA, boxB)).to.be.true;
+      });
+    });
+
+    describe('when one is fully to the side of the other', () => {
+      beforeEach(() => {
+        boxA = {
+          x: 0,
+          y: 0,
+          width: 10,
+          height: 10,
+        };
+        boxB = {
+          x: 11,
+          y: 0,
+          width: 10,
+          height: 10,
+        };
+      });
+
+      it('returns false', () => {
+        expect(isColliding(boxA, boxB)).to.be.false;
+      });
+    });
+
+    describe('when they overlap in the x direction', () => {
+      beforeEach(() => {
+        boxA.x = 0;
+        boxA.width = 10;
+        boxB.x = 5;
+        boxB.width = 10;
+      });
+
+      describe('when they also overlap in the y direction', () => {
+        beforeEach(() => {
+          boxA.y = 0;
+          boxA.height = 10;
+          boxB.y = 5;
+          boxB.height = 10;
+        });
+
+        it('returns true', () => {
+          expect(isColliding(boxA, boxB)).to.be.true;
+        });
+      });
+
+      describe('when they do not overlap in the y direction', () => {
+        beforeEach(() => {
+          boxA.y = 0;
+          boxA.height = 10;
+          boxB.y = 20;
+          boxB.height = 10;
+        });
+
+        it('returns false', () => {
+          expect(isColliding(boxA, boxB)).to.be.false;
+        });
+      });
+    });
+
+    describe('when they do not overlap in the x direction', () => {
+      beforeEach(() => {
+        boxA.x = 0;
+        boxA.width = 10;
+        boxB.x = 20;
+        boxB.width = 10;
+      });
+
+      describe('when they overlap in the y direction', () => {
+        beforeEach(() => {
+          boxA.y = 0;
+          boxA.height = 10;
+          boxB.y = 5;
+          boxB.height = 10;
+        });
+
+        it('returns false', () => {
+          expect(isColliding(boxA, boxB)).to.be.false;
+        });
+      });
+
+      describe('when they do not overlap in the y direction', () => {
+        beforeEach(() => {
+          boxA.y = 0;
+          boxA.height = 10;
+          boxB.y = 20;
+          boxB.height = 10;
+        });
+
+        it('returns false', () => {
+          expect(isColliding(boxA, boxB)).to.be.false;
+        });
+      });
+    });
   });
 });
