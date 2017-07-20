@@ -26,6 +26,11 @@ function toViewBoxCoords(width, height, x, y) {
  * @returns {Boolean}
  */
 function isColliding(rectA, rectB) {
+  // TODO After implementing getCollisionRectDimensions, can you refactor this
+  // method to use the results from that method instead of doing similar
+  // math here?
+  // Can you write tests to cover this method that mock getCollisionRectDimensions?
+  // Try sinon: http://sinonjs.org/
   if (rectA.x > rectB.x + rectB.width || rectA.x + rectA.width < rectB.x) {
     return false;
   }
@@ -34,6 +39,23 @@ function isColliding(rectA, rectB) {
   }
 
   return true;
+}
+
+/**
+ * Given two rectangles, return the dimensions of their overlapping rectangle
+ * @param {{ x: Number, y: Number, width: Number, height: Number }} rectA
+ * @param {{ x: Number, y: Number, width: Number, height: Number }} rectB
+ * @returns {{ x: Number, y: Number, width: Number, height: Number }}
+ */
+function getCollisionRectDimensions(rectA, rectB) {
+  // TODO Bonus challenge! Use this to change the color of the overlapping
+  // portion of the 2 main rectangles.  Pretty.
+  return {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  };
 }
 
 /**
@@ -63,6 +85,8 @@ function svgFactory() {
     rectangleFactory(10, 10, RECT_WIDTH, RECT_HEIGHT),
     rectangleFactory(60, 60, RECT_WIDTH, RECT_HEIGHT),
   ];
+  const collisionRect = rectangleFactory(0, 0, 0, 0);
+  collisionRect.setAttribute('fill', svgConstants.COLOR);
 
   let dragging;
   rectangles.forEach((rect) => {
@@ -71,6 +95,7 @@ function svgFactory() {
     });
     svg.appendChild(rect);
   });
+  svg.appendChild(collisionRect);
 
   svg.addEventListener('mousemove', (event) => {
     if (dragging) {
@@ -78,16 +103,26 @@ function svgFactory() {
       dragging.setAttribute('x', viewBoxCoords.x - RECT_WIDTH / 2);
       dragging.setAttribute('y', viewBoxCoords.y - RECT_HEIGHT / 2);
 
-      const collision = isColliding(
-        getRectDimensions(rectangles[0]), getRectDimensions(rectangles[1])
-      );
+      const rectADimensions = getRectDimensions(rectangles[0]);
+      const rectBDimensions = getRectDimensions(rectangles[1]);
+      const collision = isColliding(rectADimensions, rectBDimensions);
 
       if (collision) {
         rectangles[0].setAttribute('fill', svgConstants.COLLISION_COLOR);
         rectangles[1].setAttribute('fill', svgConstants.COLLISION_COLOR);
+
+        const collisionRectDimensions = getCollisionRectDimensions(
+          rectADimensions, rectBDimensions
+        );
+        collisionRect.setAttribute('x', collisionRectDimensions.x);
+        collisionRect.setAttribute('y', collisionRectDimensions.y);
+        collisionRect.setAttribute('width', collisionRectDimensions.width);
+        collisionRect.setAttribute('height', collisionRectDimensions.height);
       } else {
         rectangles[0].setAttribute('fill', svgConstants.COLOR);
         rectangles[1].setAttribute('fill', svgConstants.COLOR);
+        collisionRect.setAttribute('width', 0);
+        collisionRect.setAttribute('height', 0);
       }
     }
   });

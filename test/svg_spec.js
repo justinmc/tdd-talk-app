@@ -169,4 +169,8 @@ describe('svg', () => {
       });
     });
   });
+
+  describe('getCollisionRectDimensions', () => {
+    // TODO tdd me
+  });
 });
